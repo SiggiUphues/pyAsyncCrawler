@@ -43,8 +43,7 @@ urllib3.disable_warnings()
 
 class asyncio_crawler(object):
     def __init__(self,url,depth = 10, numworkers = None):
-
-        #crate a async requests_html session
+        #create a async requests_html session
         self.asession = AsyncHTMLSession(workers = numworkers)
         if numworkers:
             self.numworkers = numworkers
