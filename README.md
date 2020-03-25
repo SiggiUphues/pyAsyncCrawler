@@ -26,7 +26,9 @@ python setup.py install
 # Usage
 There are two executables.
 1. slow_crawler:
+
 This crawler does the work without any workers and is very slow
+
 ```
 usage: slow_crawler [-h] [-d DEPTH] [-l {Info,Warn,Debug}] url
 
@@ -42,8 +44,10 @@ optional arguments:
 
 ```
 2. asyncio_crawler:
+
 This crawler uses the asycio and <a href="https://github.com/psf/requests-html">requests-html</a>
 framework to improve the runtime of the crawler.
+
 ```
 usage: asyncio_crawler [-h] [-d DEPTH] [-n NUMWORKERS] [-l {Info,Warn,Debug}]
                        url
