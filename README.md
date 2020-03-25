@@ -1,4 +1,4 @@
-# pyCrawler
+# pyAsyncCrawler
 A simple Python3.7 page crawler to extract mail addresses.
 
 Written as pythonic solution using the asyncio and
