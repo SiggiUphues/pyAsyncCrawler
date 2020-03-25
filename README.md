@@ -27,7 +27,7 @@ python setup.py install
 There are two executables.
 1. slow_crawler:
 
-This crawler does the work without any workers and is very slow
+This crawler does the work without any workers and is very slow.
 
 ```
 usage: slow_crawler [-h] [-d DEPTH] [-l {Info,Warn,Debug}] url
