@@ -1,0 +1,82 @@
+#!/usr/bin/python
+# -*- coding: utf-8 -*-
+#
+# Copyright (c) 2020 Tristan Ueding
+#
+# GNU GENERAL PUBLIC LICENSE
+#    Version 3, 29 June 2007
+#
+# This program is free software: you can redistribute it and/or modify
+# it under the terms of the GNU General Public License as published by
+# the Free Software Foundation, either version 3 of the License, or
+# (at your option) any later version.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+
+'''
+Executable of mailcrawler package, parses arguments from command line and starts
+async_crawler.asyncio_crawler
+'''
+
+# builtin
+import argparse
+
+# custom
+from mailcrawler.logfacility import build_logger , debugLevelChoices
+from mailcrawler.async_crawler import asyncio_crawler
+
+if __name__ == '__main__':
+
+    parser = argparse.ArgumentParser()
+    parser.add_argument('url', help='This is the url to start crawling from')
+
+    parser.add_argument(
+        '-d',
+        '--depth',
+        help='How many generation of links to follow. Default 10',
+        type=int,
+        default=10
+    )
+    parser.add_argument(
+        '-n',
+        '--numworkers',
+        help='''Number of crawlers spawned. If not pass it will default to the number of processors on the
+                machine, multiplied by 5''',
+        action = 'store',
+        default= None
+    )
+
+    parser.add_argument(
+    '-l',
+    '--loglevel',
+    choices = debugLevelChoices.keys(),
+    help='Changes verbosity of the log messages (Default: Info)',
+    action = 'store',
+    dest = 'logLevel'
+    )
+
+    args = parser.parse_args()
+
+    # build the logger and prepare it for others
+    LOGGER = build_logger(
+        'asyncio_crawler',
+        logLevel=debugLevelChoices.get(args.logLevel)
+    )
+
+    LOGGER.debug("Logger build successfully!")
+
+    # Debug prints all the given arguments as a dictionary
+    LOGGER.debug("Args: %s" % str(vars(args)))
+
+    crawler = asyncio_crawler(
+        url = args.url,
+        depth = args.depth,
+        numworkers = args.numworkers
+    )
+    crawler.run()
