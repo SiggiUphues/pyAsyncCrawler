@@ -48,7 +48,7 @@ if __name__ == '__main__':
         '--numworkers',
         help='''Number of crawlers spawned. If not pass it will default to the number of processors on the
                 machine, multiplied by 5''',
-        action = 'store',
+        type = int,
         default= None
     )
 
